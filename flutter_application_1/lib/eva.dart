@@ -98,7 +98,7 @@ class _MyWidgetState extends State<Evaluate> {
                       ),
                     );
                   },
-                  child: const Text('Done'),
+                  child: const Text('Finished'),
                 ),
               ),
             ],
