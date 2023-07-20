@@ -18,10 +18,20 @@ void main() {
         'login': (context) => const MyLogin(),
         'start': (context) => const MyWidget(),
         'home': (context) => const MyHome(),
-        'home1': (context) => const NextPage(),
-        'home2': (context) => const NextPage1(),
-        'home3': (context) => const NextPage2(),
-        'result': (context) => const MyWid(),
-        'evaluate': (context) => const Evaluate(),
+        'home1': (context) => const NextPage(
+              score: 0,
+            ),
+        'home2': (context) => const NextPage1(
+              score: 0,
+            ),
+        'home3': (context) => const NextPage2(
+              score: 0,
+            ),
+        'result': (context) => const MyWid(
+              score: 0,
+            ),
+        'evaluate': (context) => const Evaluate(
+              score: 0,
+            ),
       }));
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyWid extends StatefulWidget {
-  const MyWid({Key? key}) : super(key: key);
+  final int score; // Receive the score from the previous page
+  const MyWid({Key? key, required this.score}) : super(key: key);
 
   @override
   State<MyWid> createState() => _MyWidgetState();
@@ -14,6 +15,31 @@ class _MyWidgetState extends State<MyWid> {
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoySdWYmE_bicJpoDLSrfQS8mt44cc3rm4A7swXHnGRA&s';
     String imageUrl2 =
         'https://millennialships.com/wp-content/uploads/2018/08/How-to-meet-new-people.jpg';
+
+    String resultText = '';
+    String suggestion1Text = '';
+    String suggestion2Text = '';
+
+    // Customize the result and suggestions based on the received score
+    if (widget.score <= 4) {
+      // Low score result and suggestions
+      resultText = 'You may be experiencing significant anxiety.';
+      suggestion1Text = 'Seek professional help or counseling.';
+      suggestion2Text = 'Engage in self-care activities and take breaks.';
+    } else if (widget.score > 4 && widget.score <= 7) {
+      resultText = 'You seem to be doing well!';
+      suggestion1Text = 'Continue your positive habits!';
+      suggestion2Text = 'Consider trying new activities.';
+      // Medium score result and suggestions
+      resultText = 'You may have some stress or anxiety.';
+      suggestion1Text = 'Practice relaxation techniques.';
+      suggestion2Text = 'Talk to someone you trust about your feelings.';
+    } else {
+      // High score result and suggestions
+      resultText = 'You seem to be doing well!';
+      suggestion1Text = 'Continue your positive habits!';
+      suggestion2Text = 'Consider trying new activities.';
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -32,17 +58,17 @@ class _MyWidgetState extends State<MyWid> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 16), // Add space from the top
-              const Text(
-                'You have Anxiety!!',
-                style: TextStyle(
+              Text(
+                resultText,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),
               ),
               const SizedBox(height: 20),
-              _buildImageWithText(imageUrl1, 'Listen music'),
-              _buildImageWithText(imageUrl2, 'Meet people'),
+              _buildImageWithText(imageUrl1, suggestion1Text),
+              _buildImageWithText(imageUrl2, suggestion2Text),
             ],
           ),
         ],

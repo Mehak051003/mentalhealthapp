@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home2.dart';
 
 class NextPage extends StatefulWidget {
-  const NextPage({Key? key}) : super(key: key);
+  final int score; // Receive the score from the previous page
+  const NextPage({Key? key, required this.score}) : super(key: key);
 
   @override
   State<NextPage> createState() => _MyWidgetState();
@@ -10,6 +11,18 @@ class NextPage extends StatefulWidget {
 
 class _MyWidgetState extends State<NextPage> {
   String? _selectedOption;
+  int _selectedOptionScore = 0; // Initialize score to 0
+
+  // Define a function to update the score based on the selected option
+  void _updateScore(String option) {
+    if (option == 'Ten') {
+      _selectedOptionScore = 1;
+    } else if (option == 'Hundred') {
+      _selectedOptionScore = 2;
+    } else if (option == 'Thousand') {
+      _selectedOptionScore = 3;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +45,7 @@ class _MyWidgetState extends State<NextPage> {
           children: [
             const SizedBox(height: 80), // Add space from the top
             const Text(
-              'How was your day?',
+              'How many people did you meet?',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -40,20 +53,26 @@ class _MyWidgetState extends State<NextPage> {
               ),
             ),
             const SizedBox(height: 20),
-            _buildOption('Fine'),
-            _buildOption('Awful'),
-            _buildOption('Great'),
+            _buildOption('Ten'),
+            _buildOption('Hundred'),
+            _buildOption('Thousand'),
             const SizedBox(
               height: 25,
             ), // Add a gap between the question and options
             _selectedOption != null
                 ? TextButton(
                     onPressed: () {
-                      // Navigate to the next page
+                      // Update the score based on the selected option
+                      _updateScore(_selectedOption!);
+
+                      // Calculate the total score (previous score + current score)
+                      int totalScore = widget.score + _selectedOptionScore;
+
+                      // Navigate to the next page and pass the total score
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const NextPage1(),
+                          builder: (context) => NextPage1(score: totalScore),
                         ),
                       );
                     },

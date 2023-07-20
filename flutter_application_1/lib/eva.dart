@@ -2,24 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/result.dart';
 
 class Evaluate extends StatefulWidget {
-  const Evaluate({Key? key}) : super(key: key);
+  final int score; // Receive the score from the previous page
+  const Evaluate({Key? key, required this.score}) : super(key: key);
 
   @override
   State<Evaluate> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<Evaluate> {
-  bool isEvaluating = false;
+class _MyWidgetState extends State<Evaluate>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  bool isStarted = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   void startEvaluation() {
     // Simulate evaluation process (you can replace this with your actual evaluation logic)
     setState(() {
-      isEvaluating = true;
+      isStarted = true;
+      _animationController.repeat();
     });
 
     Future.delayed(const Duration(seconds: 20), () {
       setState(() {
-        isEvaluating = false;
+        isStarted = false;
+        _animationController.stop();
       });
     });
   }
@@ -34,29 +54,14 @@ class _MyWidgetState extends State<Evaluate> {
         fit: StackFit.expand,
         children: [
           Image.network(
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMeuAyf_GYgpL9hg5EbeCnIAVngHR6wQslSA&usqp=CAU',
+            'https://plus.unsplash.com/premium_photo-1663840297018-fe653527fc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmFja2dyb3VuZCUyMGltYWdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60',
             fit: BoxFit.cover,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                child: isEvaluating
-                    ? const Center(
-                        child: Text(
-                          'Evaluating...',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )
-                    : Image.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMeuAyf_GYgpL9hg5EbeCnIAVngHR6wQslSA&usqp=CAU',
-                        fit: BoxFit.cover,
-                      ),
-              ),
+              const SizedBox(height: 20),
               Center(
                 // Centered Start Button
                 child: ElevatedButton(
@@ -66,23 +71,31 @@ class _MyWidgetState extends State<Evaluate> {
                   child: const Text('Start'),
                 ),
               ),
-              const SizedBox(height: 20),
-              Container(
-                width: 100,
-                height: 100,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red,
-                ),
-                child: const Center(
-                  child: Text(
-                    'Evaluate',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
+              Expanded(
+                child: Center(
+                  child: isStarted
+                      ? RotationTransition(
+                          turns: _animationController,
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.pink,
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Evaluate',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(), // Hide the Evaluate circle when not started
                 ),
               ),
               const SizedBox(height: 20),
@@ -94,7 +107,7 @@ class _MyWidgetState extends State<Evaluate> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MyWid(),
+                        builder: (context) => MyWid(score: widget.score),
                       ),
                     );
                   },

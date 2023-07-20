@@ -10,6 +10,18 @@ class MyHome extends StatefulWidget {
 
 class _MyWidgetState extends State<MyHome> {
   String? _selectedOption;
+  int _selectedOptionScore = 0; // Initialize score to 0
+
+  // Define a function to update the score based on the selected option
+  void _updateScore(String option) {
+    if (option == 'Fine') {
+      _selectedOptionScore = 1;
+    } else if (option == 'Awful') {
+      _selectedOptionScore = 2;
+    } else if (option == 'Great') {
+      _selectedOptionScore = 3;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +61,15 @@ class _MyWidgetState extends State<MyHome> {
             _selectedOption != null
                 ? TextButton(
                     onPressed: () {
-                      // Navigate to the next page
+                      // Update the score based on the selected option
+                      _updateScore(_selectedOption!);
+
+                      // Navigate to the next page and pass the score
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const NextPage(),
+                          builder: (context) =>
+                              NextPage(score: _selectedOptionScore),
                         ),
                       );
                     },
