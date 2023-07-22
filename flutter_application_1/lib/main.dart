@@ -5,6 +5,7 @@ import 'package:flutter_application_1/home.dart';
 import 'package:flutter_application_1/home1.dart';
 import 'package:flutter_application_1/home2.dart';
 import 'package:flutter_application_1/home3.dart';
+import 'package:flutter_application_1/home4.dart';
 import 'package:flutter_application_1/result.dart';
 import 'package:flutter_application_1/start.dart';
 import 'package:flutter_application_1/eva.dart';
@@ -25,6 +26,9 @@ void main() {
               score: 0,
             ),
         'home3': (context) => const NextPage2(
+              score: 0,
+            ),
+        'home4': (context) => const NextPage4(
               score: 0,
             ),
         'result': (context) => const MyWid(

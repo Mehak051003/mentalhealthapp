@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/home3.dart';
+import 'package:flutter_application_1/home4.dart';
 
 class NextPage1 extends StatefulWidget {
   final int score; // Receive the score from the previous page
@@ -17,7 +17,7 @@ class _MyWidgetState extends State<NextPage1> {
   void _updateScore(String option) {
     if (option == 'Sad') {
       _selectedOptionScore = 1;
-    } else if (option == 'Mid') {
+    } else if (option == 'Moderate') {
       _selectedOptionScore = 2;
     } else if (option == 'Happy') {
       _selectedOptionScore = 3;
@@ -72,7 +72,7 @@ class _MyWidgetState extends State<NextPage1> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => NextPage2(score: totalScore1),
+                          builder: (context) => NextPage4(score: totalScore1),
                         ),
                       );
                     },

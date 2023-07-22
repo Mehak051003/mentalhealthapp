@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/login.dart';
 
 class MyWid extends StatefulWidget {
   final int score; // Receive the score from the previous page
@@ -27,9 +28,6 @@ class _MyWidgetState extends State<MyWid> {
       suggestion1Text = 'Seek professional help or counseling.';
       suggestion2Text = 'Engage in self-care activities and take breaks.';
     } else if (widget.score > 4 && widget.score <= 7) {
-      resultText = 'You seem to be doing well!';
-      suggestion1Text = 'Continue your positive habits!';
-      suggestion2Text = 'Consider trying new activities.';
       // Medium score result and suggestions
       resultText = 'You may have some stress or anxiety.';
       suggestion1Text = 'Practice relaxation techniques.';
@@ -44,6 +42,19 @@ class _MyWidgetState extends State<MyWid> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Result and Suggestions'),
+        actions: [
+          IconButton(
+            icon: const Icon(
+                Icons.logout), // You can use any logout icon you prefer
+            onPressed: () {
+              // Navigate back to the login page
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const MyLogin()),
+              );
+            },
+          ),
+        ],
       ),
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -61,7 +72,7 @@ class _MyWidgetState extends State<MyWid> {
               Text(
                 resultText,
                 style: const TextStyle(
-                  fontSize: 24,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),

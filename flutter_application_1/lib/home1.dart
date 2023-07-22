@@ -15,11 +15,11 @@ class _MyWidgetState extends State<NextPage> {
 
   // Define a function to update the score based on the selected option
   void _updateScore(String option) {
-    if (option == 'Ten') {
+    if (option == '10-50') {
       _selectedOptionScore = 1;
-    } else if (option == 'Hundred') {
+    } else if (option == '51-200') {
       _selectedOptionScore = 2;
-    } else if (option == 'Thousand') {
+    } else if (option == '201-500') {
       _selectedOptionScore = 3;
     }
   }
@@ -53,9 +53,9 @@ class _MyWidgetState extends State<NextPage> {
               ),
             ),
             const SizedBox(height: 20),
-            _buildOption('Ten'),
-            _buildOption('Hundred'),
-            _buildOption('Thousand'),
+            _buildOption('10-50'),
+            _buildOption('51-200'),
+            _buildOption('201-500'),
             const SizedBox(
               height: 25,
             ), // Add a gap between the question and options

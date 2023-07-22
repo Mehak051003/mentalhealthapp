@@ -36,7 +36,7 @@ class _MyWidgetState extends State<Evaluate>
       _animationController.repeat();
     });
 
-    Future.delayed(const Duration(seconds: 20), () {
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         isStarted = false;
         _animationController.stop();

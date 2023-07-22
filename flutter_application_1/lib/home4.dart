@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/eva.dart';
+import 'package:flutter_application_1/home3.dart';
 
-class NextPage2 extends StatefulWidget {
+class NextPage4 extends StatefulWidget {
   final int score; // Receive the score from the previous page
-  const NextPage2({Key? key, required this.score}) : super(key: key);
+  const NextPage4({Key? key, required this.score}) : super(key: key);
 
   @override
-  State<NextPage2> createState() => _MyWidgetState();
+  State<NextPage4> createState() => _MyWidgetState();
 }
 
-class _MyWidgetState extends State<NextPage2> {
+class _MyWidgetState extends State<NextPage4> {
   String? _selectedOption;
   int _selectedOptionScore = 0; // Initialize score to 0
 
@@ -17,7 +17,7 @@ class _MyWidgetState extends State<NextPage2> {
   void _updateScore(String option) {
     if (option == 'Yes') {
       _selectedOptionScore = 1;
-    } else if (option == 'Not sure') {
+    } else if (option == 'Sometimes') {
       _selectedOptionScore = 2;
     } else if (option == 'No') {
       _selectedOptionScore = 3;
@@ -45,7 +45,7 @@ class _MyWidgetState extends State<NextPage2> {
           children: [
             const SizedBox(height: 80), // Add space from the top
             const Text(
-              'Did you get panic attacks?',
+              'Headaches?',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -55,7 +55,7 @@ class _MyWidgetState extends State<NextPage2> {
             const SizedBox(height: 20),
             _buildOption('Yes'),
             _buildOption('No'),
-            _buildOption('Not sure'),
+            _buildOption('Sometimes'),
             const SizedBox(
               height: 25,
             ), // Add a gap between the question and options
@@ -66,13 +66,13 @@ class _MyWidgetState extends State<NextPage2> {
                       _updateScore(_selectedOption!);
 
                       // Calculate the total score (previous score + current score)
-                      int totalScore1 = widget.score + _selectedOptionScore;
+                      int totalScore4 = widget.score + _selectedOptionScore;
 
                       // Navigate to the next page and pass the total score
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Evaluate(score: totalScore1),
+                          builder: (context) => NextPage2(score: totalScore4),
                         ),
                       );
                     },
